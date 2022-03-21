@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/sinsoio/demo/pkg/logging"
+	"github.com/AIYEE/go-demo/pkg/logging"
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -16,8 +16,14 @@ import (
 )
 
 const (
-	optionNameLoggerFile = "logger-file"
-	optionNameVerbosity  = "verbosity"
+	optionNameLoggerFile      = "logger-file"
+	optionNameVerbosity       = "verbosity"
+	optionNameDbDriver        = "db-driver"
+	optionNameDbFile          = "db-file"
+	optionNameEthSinger       = "eth-signer"
+	optionNameRPCEndPoint     = "endpoint"
+	optionNameContractAddress = "contract-address"
+	optionNameSendGas         = "send-gas"
 )
 
 type command struct {
@@ -53,6 +59,8 @@ func new(opts ...option) (c *command, err error) {
 	c.initGlobalFlags()
 
 	c.initVersionCmd()
+
+	c.initStartCmd()
 
 	return c, nil
 }
@@ -115,6 +123,17 @@ func (c *command) setHomeDir() (err error) {
 func (c *command) initGlobalFlags() {
 	globalFlags := c.root.PersistentFlags()
 	globalFlags.StringVar(&c.cfgFile, "config", "", "config file (default is $HOME/.demoConfig.yaml)")
+}
+
+func (c *command) setAllFlags(cmd *cobra.Command) {
+	cmd.Flags().String(optionNameVerbosity, "debug", "log verbosity level 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=trace")
+	cmd.Flags().String(optionNameLoggerFile, "./running.log", "log file")
+	cmd.Flags().String(optionNameDbDriver, "sqlite3", "db driver name")
+	cmd.Flags().String(optionNameDbFile, "./MinerNodes.db", "db file name")
+	cmd.Flags().String(optionNameEthSinger, "668db522795b07ba80e178fbb1972f4487d39ebaaadc4bd50416ef3022e61e84", "BNB signer")
+	cmd.Flags().String(optionNameRPCEndPoint, "https://data-seed-prebsc-1-s1.binance.org:8545", "rpc endpoint")
+	cmd.Flags().String(optionNameContractAddress, "0xf4768352a50ccfe26490501cd8dc6716af80c843", "confirm contract address")
+	cmd.Flags().Bool(optionNameSendGas, false, "need send gas")
 }
 
 func (c *command) NewLogger(verbosity string) (logging.Logger, error) {

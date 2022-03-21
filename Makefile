@@ -25,10 +25,10 @@ linux: export GOARCH=amd64
 linux: binary
 
 .PHONY: binary
-binary: export CGO_ENABLED=0
+#binary: export CGO_ENABLED=0
 binary: dist
 	$(GO) version
-	$(GO) build -trimpath -ldflags "$(LDFLAGS)" -o dist/demo ./demoService
+	$(GO) build -trimpath -ldflags "$(LDFLAGS)" -o dist/demoService ./app/demoService
 
 dist:
 	mkdir $@

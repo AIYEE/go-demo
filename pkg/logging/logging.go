@@ -43,9 +43,9 @@ func CreateFileWriter(fileName string) io.Writer {
 	return writer
 }
 
-func New(io io.Writer, level logrus.Level) Logger {
+func New(w io.Writer, level logrus.Level) Logger {
 	l := logrus.New()
-	l.SetOutput(io)
+	l.SetOutput(w)
 	l.SetLevel(level)
 	l.Formatter = &logrus.TextFormatter{
 		FullTimestamp: true,

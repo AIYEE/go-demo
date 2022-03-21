@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"os"
 
-	"../demoService/cmd"
+	"github.com/AIYEE/go-demo/app/demoService/cmd"
 )
 
 func main() {

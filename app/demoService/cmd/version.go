@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/sinsoio/demo"
+	demo "github.com/AIYEE/go-demo"
 	"github.com/spf13/cobra"
 )
 
